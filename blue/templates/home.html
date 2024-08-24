@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Agro Connect{% endblock %}
+
+{% block content %}
+    <h1 style="margin-top:5%" >Bem-vindo ao Agro Connect - Versão Azul</h1>
+    <p>Conectando produtores e consumidores diretamente.</p>
+    {% for product in products %}
+        <div class="mb-4">
+            <h2>{{ product.title }}</h2>
+            <p>{{ product.content }}</p>
+            <small>Posted by {{ product.author.username }} on {{ product.date_posted }}</small>
+        </div>
+    {% endfor %}
+{% endblock %}
+
