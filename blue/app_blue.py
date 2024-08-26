@@ -1,8 +1,10 @@
-from flask import Flask, render_template, url_for, flash, redirect, session
+from flask import Flask, render_template, url_for, flash, redirect, session, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from flask_migrate import Migrate
+from werkzeug.utils import secure_filename
+import os
 from forms import RegistrationForm, LoginForm, ProductForm
 from models import db, bcrypt, User, Product
 
@@ -67,7 +69,18 @@ def dashboard():
 
     form = ProductForm()
     if form.validate_on_submit():
-        product = Product(title=form.title.data, content=form.content.data, author=current_user)
+        # Lidar com o upload de imagem
+        if form.image.data:
+            filename = secure_filename(form.image.data.filename)
+            user_folder = os.path.join('static/images', current_user.username)
+            if not os.path.exists(user_folder):
+                os.makedirs(user_folder)
+            image_path = os.path.join(user_folder, filename)
+            form.image.data.save(image_path)
+            product = Product(title=form.title.data, content=form.content.data, author=current_user, image_file=filename)
+        else:
+            product = Product(title=form.title.data, content=form.content.data, author=current_user)
+        
         db.session.add(product)
         db.session.commit()
         flash('Your product has been posted!', 'success')
