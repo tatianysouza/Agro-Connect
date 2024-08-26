@@ -1,13 +1,17 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from .models.tables import db, bcrypt
-from blue.config import Config
+from flask_sqlalchemy import SQLAlchemy
+
 
 
 # Inicializar o aplicativo Flask
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object('config')
+db = SQLAlchemy(app)
+
+migrate = Migrate(app, db)
+
 
 # Inicializar as extensões
 db.init_app(app)
