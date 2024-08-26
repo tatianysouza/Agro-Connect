@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 style="margin-top:5%">My Products</h2>
+    {% if products %}
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img class="card-img-top" src="{{ url_for('static', filename='images/' ~ current_user.username ~ '/' ~ product.image_file) }}" alt="Product image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.title }}</h5>
+                            <p class="card-text">{{ product.content }}</p>
+                            <a href="{{ url_for('delete_product', product_id=product.id) }}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Você não possui produtos cadastrados.</p>
+    {% endif %}
+{% endblock %}

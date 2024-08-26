@@ -87,6 +87,31 @@ def dashboard():
         return redirect(url_for('home'))
     return render_template('dashboard.html', form=form)
 
+# Rota para a página de produtos do vendedor
+@app.route('/my_products')
+@login_required
+def my_products():
+    if current_user.role != 'vendor':
+        flash('Access denied. You must be a seller to access this page.', 'danger')
+        return redirect(url_for('home'))
+    
+    products = Product.query.filter_by(author=current_user).all()
+    return render_template('my_products.html', products=products)
+
+# Rota para deletar produtos do vendedor
+@app.route('/delete_product/<int:product_id>', methods=['POST'])
+@login_required
+def delete_product(product_id):
+    product = Product.query.get_or_404(product_id)
+    if product.author != current_user:
+        flash('You are not authorized to delete this product.', 'danger')
+        return redirect(url_for('home'))
+
+    db.session.delete(product)
+    db.session.commit()
+    flash('Product has been deleted.', 'success')
+    return redirect(url_for('my_products'))
+
 # Rota para logout de usuário
 @app.route('/logout')
 @login_required
