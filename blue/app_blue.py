@@ -61,6 +61,10 @@ def login():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
+    if current_user.role != 'vendor':
+        flash('Access denied. You must be a seller to access this page.', 'danger')
+        return redirect(url_for('home'))
+
     form = ProductForm()
     if form.validate_on_submit():
         product = Product(title=form.title.data, content=form.content.data, author=current_user)
