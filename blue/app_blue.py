@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 import os
 from forms import RegistrationForm, LoginForm, ProductForm
 from models import db, bcrypt, User, Product
+from flask_wtf.csrf import CSRFProtect
 
 # Inicializar o aplicativo Flask
 app = Flask(__name__)
@@ -17,7 +18,7 @@ db.init_app(app)
 bcrypt.init_app(app)
 login_manager = LoginManager(app)
 migrate = Migrate(app, db)
-
+csrf = CSRFProtect(app)
 # Configurar a página de login
 login_manager.login_view = 'login'
 
@@ -101,6 +102,7 @@ def my_products():
 # Rota para deletar produtos do vendedor
 @app.route('/delete_product/<int:product_id>', methods=['POST'])
 @login_required
+@csrf.exempt  # Opcional: Exclui essa rota da proteção CSRF se não estiver funcionando
 def delete_product(product_id):
     product = Product.query.get_or_404(product_id)
     if product.author != current_user:
