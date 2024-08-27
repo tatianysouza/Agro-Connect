@@ -7,9 +7,9 @@
     <p>Conectando produtores e consumidores diretamente.</p>
     {% for product in products %}
         <div class="mb-4">
-            <h2>{{ product.title }}</h2>
+            <h2>{{ product.nome }}</h2>
             <p>{{ product.content }}</p>
-            <small>Posted by {{ product.author.username }} on {{ product.date_posted }}</small>
+            <small>Posted by {{ product.produtor.username }} on {{ product.date_posted }}</small>
         </div>
     {% endfor %}
 {% endblock %}

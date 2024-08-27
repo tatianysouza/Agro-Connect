@@ -8,7 +8,6 @@ class TipoUsuario(enum.Enum):
     PRODUTOR = "Produtor"
     COMPRADOR = "Comprador"
 
-
 class Usuario(db.Model, UserMixin):
     __tablename__ = "usuarios"
     
@@ -17,16 +16,19 @@ class Usuario(db.Model, UserMixin):
     telefone = db.Column(db.String(20))
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(60), nullable=False)
-    endereco = db.Column(db.String(100), nullable=False)
+    endereco = db.Column(db.String(100), nullable=False, default='a')
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     data_criacao = db.Column(db.DateTime, default=datetime.now(timezone.utc))
-    tipo_usuario = db.Column(db.Enum(TipoUsuario), nullable=False)
+    tipo_usuario = db.Column(db.Enum(TipoUsuario), nullable=False, default=TipoUsuario.PRODUTOR)
 
-    produtos = db.relationship('Produto', backref='produtor', lazy=True)
-    pedidos = db.relationship("Pedido", backref="comprador")
+    # Relacionamentos
+    produtos = db.relationship('Produto', back_populates='produtor')
+    pedidos_como_comprador = db.relationship("Pedido", foreign_keys='Pedido.id_comprador', back_populates="comprador")
+    pedidos_como_vendedor = db.relationship("Pedido", foreign_keys='Pedido.id_produtor', back_populates="produtor")
     
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+
 
 class Produto(db.Model):
     __tablename__ = "produtos"
@@ -41,8 +43,11 @@ class Produto(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
     id_produtor = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
 
+    produtor = db.relationship('Usuario', back_populates='produtos')
+    
     def __repr__(self):
-        return f"Product('{self.title}', '{self.date_posted}')"
+        return f"Product('{self.nome}', '{self.date_posted}')"
+
 
 class Pedido(db.Model):
     __tablename__ = "pedidos"
@@ -54,7 +59,10 @@ class Pedido(db.Model):
     status = db.Column(db.Enum("Pendente", "Concluído", "Cancelado", name="status_enum"), nullable=False)
     total = db.Column(db.DECIMAL(precision=10, scale=2), nullable=False)
     
-    itens = relationship("ItemPedido", backref="pedido")
+    itens = db.relationship("ItemPedido", backref="pedido")
+    comprador = db.relationship('Usuario', foreign_keys=[id_comprador], back_populates="pedidos_como_comprador")
+    produtor = db.relationship('Usuario', foreign_keys=[id_produtor], back_populates="pedidos_como_vendedor")
+
 
 class ItemPedido(db.Model):
     __tablename__ = 'itens_pedido'
@@ -66,18 +74,15 @@ class ItemPedido(db.Model):
     preco_unitario = db.Column(db.DECIMAL(precision=10, scale=2), nullable=False)
     total = db.Column(db.DECIMAL(precision=10, scale=2), nullable=False)
 
-
 class Avaliacao(db.Model):
     __tablename__ = 'avaliacoes'
     
     id = db.Column(db.Integer, primary_key=True)
     id_produto = db.Column(db.Integer, db.ForeignKey('produtos.id'), nullable=False)
-    id_comprador = db.Column(db.Integer, db.ForeignKey('compradores.id'), nullable=False)
+    id_comprador = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
     nota = db.Column(db.Integer, nullable=False)
     comentario = db.Column(db.Text, nullable=False)
     data_avaliacao = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
     produto = relationship("Produto", backref="avaliacoes")
-    comprador = relationship("Comprador", backref="avaliacoes")
-    
-    
+    comprador = relationship("Usuario", backref="avaliacoes")

@@ -1,0 +1,42 @@
+
+{% extends "base.html" %}
+{% block title %}{{ super() }} - Anunciar Produto{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/new_product.css')}}">
+{% endblock %}
+
+{% block content %}
+    <h1>Cadastrar Produto</h1>
+            
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.nome.label }}
+            {{ form.nome(class="form-control") }}
+        </div>
+        <div>
+            {{ form.descricao.label }}
+            {{ form.descricao(class="form-control") }}
+        </div>
+        <div>
+            {{ form.preco.label }}
+            {{ form.preco(class="form-control") }}
+        </div>
+        <div>
+            {{ form.quantidade.label }}
+            {{ form.quantidade(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.unidade_medida.label }}<br>
+            {{ form.unidade_medida(class_="form-control") }}
+        </div>
+        <div>
+            {{ form.imagens.label }}
+            {{ form.imagens(class="form-control-file") }}
+        </div>
+        <div>
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock content %}
