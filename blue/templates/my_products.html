@@ -1,26 +1,31 @@
 {% extends "base.html" %}
 
+{% block style %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/cards.css')}}">
+{% endblock %}
+
 {% block content %}
-    <h2 style="margin-top:5%">Meus Produtos</h2>
-    {% if products %}
-        <div class="row">
+    <section class="container">
+        <h2 class="titleSection">Marketplace</h2>
+        <div class="content-cards">
             {% for product in products %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img class="card-img-top" src="{{ url_for('static', filename='uploads/' ~ current_user.username ~ '/' ~ product.image_file) }}" alt="Imagem do produto">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.nome }}</h5>
-                            <p class="card-text">{{ product.descricao }}</p>
-                            <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="btn btn-danger">Deletar</button>
-                            </form>
-                        </div>
+                <div class="card">
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                        <img src="{{ url_for('uploaded_file', filename=product.image_file) }}" class="card-img-top" alt="{{ product.nome }}">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.nome }}</h5>
+                        <p class="card-text">{{ product.descricao }}</p>
+                        <p class="card-price"><strong>Preço:</strong> R$ {{ product.preco }}</p>
+                        <p class="card-availability"><strong>Qtde total:</strong> {{ product.quantidade }} {{ product.unidade_medida}}</p>
+                        <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post" style="display:inline;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" class="btn btn-primary btn-danger">Delete</button>
+                        </form>
+                        <p class="card-text"><small class="text-muted">Postado por {{ product.produtor.username }} em {{ product.date_posted.strftime('%Y-%m-%d') }}</small></p>
                     </div>
                 </div>
             {% endfor %}
         </div>
-    {% else %}
-        <p>Você não possui produtos cadastrados.</p>
-    {% endif %}
+    </section>
 {% endblock %}

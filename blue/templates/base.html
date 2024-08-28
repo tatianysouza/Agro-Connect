@@ -1,71 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Agro Connect{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    {% block css %}{% endblock %}
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/da218c70e5.js" crossorigin="anonymous"></script>
+    {% block style%}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('home') }}">Agro Connect</a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-                </li>
-                {% if current_user.is_authenticated %}
-                {% if current_user.tipo_usuario == 'PRODUTOR' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cadastrar_produto') }}">Cadastrar Produto</a>
-                    </li>
-                    <li class="nav-item">
-                        
-                    </li>
-                {% endif %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ current_user.username }}
+    <header>
+        <div class="conteiner-logo-header">
+            <div class="mainHeader">
+                <div class="logoHeader">
+                    <a class="" href="{{ url_for('home') }}" tabindex="1">
+                        <img class="navbar-brand" alt="Git logo" src="../static/images/logo.png">
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
-                    </div>
-                </li>
-            {% else %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Conta
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url_for('login') }}">Login</a>
-                        <a class="dropdown-item" href="{{ url_for('register') }}">Registrar</a>
-                    </div>
-                </li>
-            {% endif %}
-
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container">
-        {% with messages = get_flashed_messages(with_categories=True) %}
-            {% if messages %}
-                <div class="alert alert-dismissible fade show" role="alert">
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
-            {% endif %}
-        {% endwith %}
+                <div id="titleHeader">
+                    <h1>Agro</h1>
+                    <h1><span>Connect</span></h1>
+                </div>
+            </div>
+            <div class="menu-section">
+                <div class="menu-toggle">
+                    <div class="one"></div>
+                    <div class="two"></div>
+                    <div class="three"></div>
+                </div>
+                <div class="navContainer">
+                    <nav class="navHeader">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ url_for('home') }}"><i class="bi bi-house-door"></i> Home</a>
+                            </li>
+                            {% if current_user.is_authenticated %}
+                            <li class="nav-item">
+                                {% if tipo_usuario == TipoUsuario.PRODUTOR %}
+                                <a class="nav-link" href="{{ url_for('cadastrar_produto') }}">Anunciar Produto</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item">
+                                {% if tipo_usuario == TipoUsuario.PRODUTOR %}
+                                <a class="nav-link" href="{{ url_for('my_products') }}">My Products</a>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('checkout') }}">
+                                    <i class="bi bi-cart"></i> Carrinho
+                                    {% if 'cart' in session and session['cart'] %}
+                                    <span class="badge bg-secondary">{{ session['cart'] | length }}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('perfil') }}"><i class="bi bi-person"></i> Perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('login') }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('register') }}"><i class="bi bi-box-arrow-in-right"></i> Register</a>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('about') }}"><i class="fa-solid fa-exclamation"></i> Sobre</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
 
+    <main>
         {% block content %}
+            
         {% endblock %}
-    </div>
+    </main>
 
+    <footer>
+        <div class="container-elements">
+            <div class="info">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="img-logo">
+                <div class="text-info">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque officia doloribus nihil quia quasi fugit magnam dicta distinctio quisquam? Laudantium tenetur eligendi facilis hic vero earum repellendus neque harum nisi!
+                    </p>
+                </div>
+            </div>
+            
+            <div class="links">
+                <div class="pages">
+                    <ul>
+                        {% block routes %}
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        {% endblock %}
+                    </ul>
+                </div>
+    
+                <div class="complements">
+                    <ul>
+                        <li><a href="https://github.com/tatianysouza/Agro-Connect" target="_blank">Repository</a></li>
+                        <li><a href="https://flask.palletsprojects.com/en/3.0.x/" target="_blank">Framework</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="authors">     
+                <div id="author-luiz" class="container-author">
+                    <img src="{{ url_for('static', filename='images/luiz-autor.jpeg') }}" alt="autor2">
+                    <div>
+                        <h4>Luiz Fernando</h4>
+                        <p>Desenvolvedor Full Stack</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="copyright">
+            <p>Copyright &copy; 2024 <span></span> - <span>Agro-Connect</span></p>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/header.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

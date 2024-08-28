@@ -1,0 +1,35 @@
+.product-detail-img {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-detail-container {
+    margin-top: 50px;
+}
+
+.product-detail-title {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.product-detail-description {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.product-detail-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.product-detail-quantity {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.btn-add-to-cart {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+}

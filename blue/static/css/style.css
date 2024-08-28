@@ -1,0 +1,40 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(34, 34, 34);
+  color: #fff;
+  width: 100%;
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.container {
+  padding: 2rem 5rem;
+  min-height: 100vh;
+  width: 100%;
+  --bs-text-opacity: 1;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 700;
+}
+
+.titleSection {
+  font-family: "Rubik",sans-serif;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 3rem;
+  margin-bottom: 3%;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/product_detail.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ url_for('uploaded_file', filename=product.image_file) }}" class="img-fluid" alt="{{ product.nome }}">
+        </div>
+        <div class="col-md-6">
+            <h1>{{ product.nome }}</h1>
+            <p class="lead">{{ product.descricao }}</p>
+            <p><strong>Price:</strong> ${{ product.preco }}</p>
+            <p><strong>Quantity:</strong> {{ product.quantidade }} {{ product.unidade_medida }}</p>
+            <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

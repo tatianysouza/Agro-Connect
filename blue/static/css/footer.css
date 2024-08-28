@@ -1,0 +1,108 @@
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #000000;
+    color: #444444;
+    padding: .5rem 4rem 1rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+/* tilte */
+.title-footer {
+    color: #ffff;
+    border-bottom: 2px solid #444444;
+    width: 100%;
+    text-align: center;
+}
+
+
+/* container-elements */
+.container-elements {
+    display: flex;  
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding-top: 2rem;
+}
+
+
+/* info-element */
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start;
+    max-width: 65vh;
+}
+.info img {
+    width: 70px;
+    margin-top: .8rem;
+}
+
+.info div {
+    margin-left: .8rem;
+}
+
+.info div p {
+    line-height: 1.5;
+    font-size: 13.8px;
+    text-align: justify;
+}
+
+
+/* pages-element and complements-element */
+.pages ul li, .complements ul li {
+    list-style: none;
+    padding-bottom: .4rem;
+}
+
+.pages ul li a, .complements ul li a {
+    color: #444444;
+    text-decoration: none;
+}
+
+.pages ul, .complements ul {
+    margin-top: .8rem;
+}
+
+
+/* authors-element */
+.container-author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container-author img {
+    width: 45px;
+    border-radius: 50px;
+    border: .14rem solid #444444;
+}
+
+.container-author div {
+    margin-left: .8rem;
+}
+
+.container-author div h4 {
+    margin-bottom: .1rem;
+}
+
+.container-author div p {
+    font-size: 13px;
+    margin-top: 0;
+}
+
+
+/* copyright */
+.copyright {
+    width: 90%;
+    text-align: center;
+    margin-top: 1.3rem;
+    border-top: .3px solid #444444;
+}
+
+.copyright span {
+    color: #ff960b;
+    margin-left: .2rem;
+}
