@@ -26,14 +26,16 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        tipo_usuario = 'PRODUTOR' if form.role.data == 'user' else 'COMPRADOR'
         
+        tipo_usuario = form.role.data
         user = Usuario(username=form.username.data, email=form.email.data, senha=hashed_password, tipo_usuario=tipo_usuario)
         db.session.add(user)
         db.session.commit()
+        
         flash('Your account has been created!', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
+
 
 # Rota para login de usuário
 @app.route('/login', methods=['GET', 'POST'])

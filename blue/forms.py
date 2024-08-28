@@ -10,7 +10,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField('Role', choices=[(TipoUsuario.PRODUTOR.value, 'Produtor'), (TipoUsuario.COMPRADOR.value, 'Comprador')], validators=[DataRequired()])
+    role = SelectField('Role', choices=[('PRODUTOR', 'Produtor'), ('COMPRADOR', 'Comprador')], validators=[DataRequired()])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
