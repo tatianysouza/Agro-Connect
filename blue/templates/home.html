@@ -24,11 +24,13 @@
     <div class="row">
         {% for product in products %}
             <div class="card mb-4" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='images/' + product.author.username + '/' + product.image_file) }}" class="card-img-top" alt="{{ product.title }}">
+                <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                    <img src="{{ url_for('uploaded_file', filename=product.image_file) }}" class="card-img-top" alt="{{ product.nome }}">
+                </a>
                 <div class="card-body">
-                    <h5 class="card-title">{{ product.title }}</h5>
-                    <p class="card-text">{{ product.content }}</p>
-                    <p class="card-text"><small class="text-muted">Posted by {{ product.author.username }} on {{ product.date_posted.strftime('%Y-%m-%d') }}</small></p>
+                    <h5 class="card-title">{{ product.nome }}</h5>
+                    <p class="card-text">{{ product.descricao }}</p>
+                    <p class="card-text"><small class="text-muted">Posted by {{ product.produtor.username }} on {{ product.date_posted.strftime('%Y-%m-%d') }}</small></p>
                 </div>
             </div>
         {% endfor %}
