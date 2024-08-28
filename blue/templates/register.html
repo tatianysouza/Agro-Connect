@@ -2,53 +2,57 @@
 
 {% block title %}Register{% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+{% endblock %}
+
+
 {% block content %}
-    <h1 style="margin-top:5%">Register</h1>
-    <form method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-
-        <div class="form-group">
-            {{ form.username.label(class="form-label") }}
-            {{ form.username(class="form-control", size=32) }}
-        </div>
-        
-        <div class="form-group">
-            {{ form.email.label(class="form-label") }}
-            {{ form.email(class="form-control", size=32) }}
-        </div>
-        
-        <div class="form-group">
-            {{ form.telefone.label(class="form-label") }}
-            {{ form.telefone(class="form-control", size=32) }}
-        </div>
-        
-        <div class="form-group">
-            {{ form.endereco.label(class="form-label") }}
-            {{ form.endereco(class="form-control", size=32) }}
-        </div>
-
-        <div class="form-group">
-            {{ form.image_file.label(class="form-label") }}
-            {{ form.image_file(class="form-control") }}
-        </div>
-
-        <div class="form-group">
-            {{ form.senha.label(class="form-label") }}
-            {{ form.senha(class="form-control", size=32) }}
-        </div>
-
-        <div class="form-group">
-            {{ form.confirmar_senha.label(class="form-label") }}
-            {{ form.confirmar_senha(class="form-control", size=32) }}
-        </div>
-
-        <div class="form-group">
-            {{ form.tipo_usuario.label(class="form-label") }}
-            {{ form.tipo_usuario(class="form-control") }}
-        </div>
-        
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary") }}
-        </div>
-    </form>
+    <section class="container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="main-login">
+                <div class="right-register">
+                    <div class="card-register">
+                        <h1>Sign up</h1>
+                        <div class="textfield">
+                            {{ form.username.label(class="form-label") }}
+                            {{ form.username(class="form-control", size=32) }}
+                        </div>
+                        <div class="textfield">
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-control", size=32) }}
+                        </div>
+                        <div class="textfield">
+                            {{ form.telefone.label(class="form-label") }}
+                            {{ form.telefone(class="form-control", size=32) }}
+                        </div>
+                        <div class="textfield">
+                            {{ form.endereco.label(class="form-label") }}
+                            {{ form.endereco(class="form-control", size=32) }}
+                        </div>
+                        <div class="textfield">
+                            {{ form.image_file.label(class="form-label") }}
+                            {{ form.image_file(class="form-control") }}
+                        </div>
+                        <div class="textfield">
+                            {{ form.senha.label(class="form-label") }}
+                            {{ form.senha(class="form-control", size=32) }}
+                        </div>
+                        <div class="textfield">
+                            {{ form.confirmar_senha.label(class="form-label") }}
+                            {{ form.confirmar_senha(class="form-control", size=32) }}
+                        </div>
+                        <div class="textfield">
+                            {{ form.tipo_usuario.label(class="form-label") }}
+                            {{ form.tipo_usuario(class="form-control") }}
+                        </div>
+                        
+                        {{ form.submit(class="btn-login") }}
+                        <p class="signin">Já tem conta? <a href="{{ url_for('login') }}">Sign in</a> </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
 {% endblock %}

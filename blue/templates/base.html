@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Agro Connect{% endblock %}</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/da218c70e5.js" crossorigin="anonymous"></script>
@@ -40,9 +38,6 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="{{ url_for('home') }}"><i class="bi bi-house-door"></i> Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('about') }}"><i class="fa-solid fa-exclamation"></i> Sobre</a>
                             </li>
                             {% if current_user.is_authenticated %}
                             <li class="nav-item">
@@ -77,6 +72,9 @@
                                 <a class="nav-link" href="{{ url_for('register') }}"><i class="bi bi-box-arrow-in-right"></i> Register</a>
                             </li>
                             {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('about') }}"><i class="fa-solid fa-exclamation"></i> Sobre</a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -84,12 +82,10 @@
         </div>
     </header>
 
-    <main class="container">
-        <section class="container-main">
-            {% block content %}
+    <main>
+        {% block content %}
             
-            {% endblock %}
-        </section>
+        {% endblock %}
     </main>
 
     <footer>
