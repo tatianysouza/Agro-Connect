@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from ..forms import RegistrationForm, LoginForm, CadastroProdutoForm
 from ..models.tables import db, Usuario, Produto
 from datetime import datetime, timezone
+from ..models.tables import TipoUsuario, db, Usuario, Produto
 
 
 # Função para carregar o usuário
@@ -25,7 +26,9 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Usuario(username=form.username.data, email=form.email.data, senha=hashed_password)
+        tipo_usuario = 'PRODUTOR' if form.role.data == 'user' else 'COMPRADOR'
+        
+        user = Usuario(username=form.username.data, email=form.email.data, senha=hashed_password, tipo_usuario=tipo_usuario)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created!', 'success')
@@ -59,7 +62,6 @@ def cadastrar_produto():
             os.makedirs(app.config['UPLOAD_PATH'])
         
         if form.imagens.data and allowed_file(form.imagens.data.filename):
-            # Asegure-se de que o nome do arquivo seja seguro
             imagem_nome = secure_filename(form.imagens.data.filename)
             imagens_path = os.path.join(app.config['UPLOAD_PATH'], imagem_nome)
             form.imagens.data.save(imagens_path)
