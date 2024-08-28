@@ -16,6 +16,14 @@
                     <a class="nav-link" href="{{ url_for('home') }}">Home</a>
                 </li>
                 {% if current_user.is_authenticated %}
+                {% if current_user.tipo_usuario == 'PRODUTOR' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('cadastrar_produto') }}">Cadastrar Produto</a>
+                    </li>
+                    <li class="nav-item">
+                        
+                    </li>
+                {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ current_user.username }}
@@ -24,17 +32,18 @@
                         <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
                     </div>
                 </li>
-                {% else %}
+            {% else %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Account
+                        Conta
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ url_for('login') }}">Login</a>
-                        <a class="dropdown-item" href="{{ url_for('register') }}">Register</a>
+                        <a class="dropdown-item" href="{{ url_for('register') }}">Registrar</a>
                     </div>
                 </li>
-                {% endif %}
+            {% endif %}
+
             </ul>
         </div>
     </nav>

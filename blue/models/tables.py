@@ -19,7 +19,7 @@ class Usuario(db.Model, UserMixin):
     endereco = db.Column(db.String(100), nullable=False, default='a')
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     data_criacao = db.Column(db.DateTime, default=datetime.now(timezone.utc))
-    tipo_usuario = db.Column(db.Enum(TipoUsuario), nullable=False, default=TipoUsuario.PRODUTOR)
+    tipo_usuario = db.Column(db.String(50), nullable=False, default='COMPRADOR')
 
     # Relacionamentos
     produtos = db.relationship('Produto', back_populates='produtor')

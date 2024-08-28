@@ -3,14 +3,14 @@ from flask_wtf.file import FileAllowed, FileRequired
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, DecimalField, IntegerField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 
-from .models.tables import Usuario, TipoUsuario
+from .models.tables import Usuario,TipoUsuario
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField('Role', choices=[('user', TipoUsuario.PRODUTOR.value), ('vendor', TipoUsuario.COMPRADOR.value)], validators=[DataRequired()])
+    role = SelectField('Role', choices=[(TipoUsuario.PRODUTOR.value, 'Produtor'), (TipoUsuario.COMPRADOR.value, 'Comprador')], validators=[DataRequired()])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
