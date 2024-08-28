@@ -91,3 +91,7 @@ def logout():
     logout_user()
     session.pop('user_id', None)  # Remove 'user_id' da sessão se estiver presente
     return redirect(url_for('home'))
+
+@app.route('/about')
+def about():
+    return render_template('about.html')

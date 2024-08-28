@@ -1,0 +1,253 @@
+.navbar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+  
+.destaque:hover {
+    color: black;
+}
+  
+.topHeader {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+    background-color: #ff960b;
+    font-size: 0.9rem;
+    font-weight: 100;
+}
+
+.topHeader p {
+    font-size: .9rem;
+    font-weight: bold;
+}
+
+.mainHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+    background-color: #000000;
+    padding: 6rem;
+}
+
+.logoHeader {
+    margin-right: 15px;
+}
+
+.logoHeader img {
+    width: 160px;
+}
+
+#titleHeader {
+    flex-direction: column;
+    font-size: 3.5rem;
+    line-height: 50px;
+    font-weight: 200;
+    padding: 1rem;
+}
+
+h1 span {
+    color: #ff960b;
+}
+
+.navContainer {
+    position: relative;
+    width: 100%;
+}
+
+.navHeader {
+    width: 100%;
+    background-color: #000000;
+    border-top: 2px solid #ff960b;
+    border-bottom: 2px solid #ff960b;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-item {
+    display: inline-block;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    margin: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 0.95rem;
+    color: #fff;
+    letter-spacing: 0.0625em;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #ff960b;
+    transition: 0.3s all;
+}
+
+.navbar > .container {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-left: 2rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+@media (max-width: 850px){
+    /*HEADER*/
+    .conteiner-logo-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #000;
+        border-bottom: 2px solid #ff960b;
+    }
+
+    #titleHeader {
+        font-size: 16px !important;
+        line-height: 15px !important;
+    }
+
+    .one,
+    .two,
+    .three {
+        background-color: #fff;
+        height: 5px;
+        width: 100%;
+        margin: 6px auto;
+        transition-duration: 0.3s;
+    }
+
+    .menu-toggle {
+        width: 40px;
+        height: 30px;
+        margin-right: 20px;
+    }
+
+    .menu-section.on {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000000;
+        z-index: 10;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-section.on nav {
+        display: block;
+    }
+
+    .menu-section.on nav ul a{
+        transition-duration: 0.5s;
+        font-size: 2.5rem;
+        line-height: 3rem;
+        display: block;
+    }
+
+    .menu-section.on .menu-toggle {
+        position: absolute;
+        right: 0;
+        top: 15px;
+    }
+
+    .menu-section.on .menu-toggle .one {
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .menu-section.on .menu-toggle .two {
+        opacity: 0;
+    }
+
+    .menu-section.on .menu-toggle .three {
+        transform: rotate(-45deg) translate(8px, -9px);
+    }
+
+    .navHeader {
+        background-color: transparent;
+        border: none;
+    }
+
+    .mainHeader {
+        padding: 0rem;
+        height: auto;
+    }
+
+    .logoHeader {
+        margin-bottom: 0rem;
+    }
+
+    .logoHeader img {
+        width: 50px;
+    }
+
+    .navbar-brand {
+        margin-right: 0rem;
+    }
+
+    #titleHeader {
+        font-size: 36px;
+        line-height: 40px;
+        text-align: center;
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+
+    .navContainer nav {
+        display: none;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 300px){
+    .logoHeader {
+        margin-right: 0px;
+    }
+
+    .navbar-brand {
+        margin-left: 0rem;
+        margin-right: 0rem;
+    }
+
+    .mainHeader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-left: 1rem;
+        flex-direction: column;
+    }
+}
