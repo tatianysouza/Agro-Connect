@@ -1,4 +1,4 @@
-from blue import app, db, login_manager, bcrypt
+from blue import app, db, login_manager, bcrypt, csrf
 from flask import Flask, render_template, url_for, flash, redirect, session
 from flask_login import current_user, login_user, logout_user, login_required
 import os
@@ -6,7 +6,6 @@ from werkzeug.utils import secure_filename
 from ..forms import RegistrationForm, LoginForm, CadastroProdutoForm
 from ..models.tables import db, Usuario, Produto
 from datetime import datetime, timezone
-
 
 # Função para carregar o usuário
 @login_manager.user_loader
@@ -53,6 +52,10 @@ def allowed_file(filename):
 @app.route('/cadastrar_produto', methods=['GET', 'POST'])
 @login_required
 def cadastrar_produto():
+    if current_user.role != 'vendor':
+        flash('Access denied. You must be a seller to access this page.', 'danger')
+        return redirect(url_for('home'))
+    
     form = CadastroProdutoForm()
     if form.validate_on_submit():
         if not os.path.exists(app.config['UPLOAD_PATH']):
@@ -95,3 +98,28 @@ def logout():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/delete_product/<int:product_id>', methods=['POST'])
+@login_required
+@csrf.exempt
+def delete_product(product_id):
+    product = Produto.query.get_or_404(product_id)
+    if product.author != current_user:
+        flash('You are not authorized to delete this product.', 'danger')
+        return redirect(url_for('home'))
+
+    db.session.delete(product)
+    db.session.commit()
+    flash('Product has been deleted.', 'success')
+    return redirect(url_for('my_products'))
+
+# Rota para a página de produtos do vendedor
+@app.route('/my_products')
+@login_required
+def my_products():
+    if current_user.role != 'vendor':
+        flash('Access denied. You must be a seller to access this page.', 'danger')
+        return redirect(url_for('home'))
+    
+    products = Produto.query.filter_by(author=current_user).all()
+    return render_template('my_products.html', products=products)

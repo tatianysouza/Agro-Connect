@@ -1,16 +1,37 @@
 {% extends "base.html" %}
 
+{% block css %}
+<style>
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-title {
+        color: #007bff;
+    }
+    .card-text {
+        color: #555;
+    }
+</style>
+{% endblock %}
+
 {% block title %}Home - Agro Connect{% endblock %}
 
 {% block content %}
-    <h1 style="margin-top:5%" >Bem-vindo ao Agro Connect - Versão Azul</h1>
+    <h1 style="margin-top:5%">Bem-vindo ao Agro Connect - Versão Azul</h1>
     <p>Conectando produtores e consumidores diretamente.</p>
-    {% for product in products %}
-        <div class="mb-4">
-            <h2>{{ product.nome }}</h2>
-            <p>{{ product.content }}</p>
-            <small>Posted by {{ product.produtor.username }} on {{ product.date_posted }}</small>
-        </div>
-    {% endfor %}
+    <div class="row">
+        {% for product in products %}
+            <div class="card mb-4" style="width: 18rem;">
+                <img src="{{ url_for('static', filename='images/' + product.author.username + '/' + product.image_file) }}" class="card-img-top" alt="{{ product.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">{{ product.content }}</p>
+                    <p class="card-text"><small class="text-muted">Posted by {{ product.author.username }} on {{ product.date_posted.strftime('%Y-%m-%d') }}</small></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
