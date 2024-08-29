@@ -64,6 +64,11 @@
     margin-bottom: 5px;
 }
 
+.checkout-summary-price {
+    display: flex;
+    justify-content: space-between;
+}
+
 .checkout-summary {
     margin-top: 30px;
     padding: 20px;
@@ -77,6 +82,13 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
+    margin-bottom: 15px;
+}
+
+.checkout-summary p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
     margin-bottom: 15px;
 }
 

@@ -2,6 +2,7 @@
 
 {% block style %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/product_detail.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/cards.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -19,13 +20,7 @@
         <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             
-            {% if product.ativo == "True" %}
-            <!-- Campo de quantidade -->
-            <div class="quantity-group">
-                <label for="quantity"><strong>Quantidade:</strong></label>
-                <input type="number" name="quantity" id="quantity" min="1" max="{{ product.quantidade }}" value="1" class="form-control">
-            </div>
-
+            {% if product.ativo == True %}
             <button type="submit" class="btn btn-primary btn-add-to-cart">Adicionar ao Carrinho</button>
             {% endif %}
         </form>

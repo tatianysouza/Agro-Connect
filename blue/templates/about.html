@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Sobre - Agro Connect{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="container">
+    <main class="conteudo">
+        <div class="header-aboult">
+            <h1 class="titulo">Nós Somos <strong>AgroConnect</strong></h1>
+            <p>O melhor site para pequenos produtores rurais do mundo!</p>
+        </div>
+        <div class="conteudo-principal">
+            <img class="conteudo-principal-imagem" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Comunidade">
+            <div class="conteudo-principal-escrito">
+                <p>AgroConnect: A Plataforma para o Futuro da Agricultura</p>
+                <p>
+                    De cunho academico, o AgroConnect é uma ferramenta web projetada para promover a interação e o desenvolvimento sustentável entre produtores locais e compradores, ao mesmo tempo que fomenta a disseminação de práticas agrícolas avançadas.
+                </p>
+                <p>
+                    Esta plataforma visa facilitar a conexão direta e eficiente entre agricultores e consumidores, oferecendo uma interface intuitiva que permite o acesso a informações detalhadas sobre produtos, práticas de cultivo e tendências do mercado. Através de recursos interativos e um design focado na usabilidade, o AgroConnect busca não apenas melhorar a visibilidade dos produtos agrícolas, mas também educar os usuários sobre a importância da agricultura local e sustentável.
+                </p>
+            </div>
+        </div>
+    </main>
+</section>
+{% endblock %}

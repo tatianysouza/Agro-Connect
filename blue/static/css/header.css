@@ -14,7 +14,7 @@
     justify-content: center;
     text-align: center;
     padding: 5px;
-    background-color: #ff960b;
+    background-color: green;
     font-size: 0.9rem;
     font-weight: 100;
 }
@@ -51,7 +51,7 @@
 }
 
 h1 span {
-    color: #ff960b;
+    color: rgb(47, 179, 47);
 }
 
 .navContainer {
@@ -62,8 +62,8 @@ h1 span {
 .navHeader {
     width: 100%;
     background-color: #000000;
-    border-top: 2px solid #ff960b;
-    border-bottom: 2px solid #ff960b;
+    border-top: 2px solid green;
+    border-bottom: 2px solid green;
 }
 
 .navbar-nav {

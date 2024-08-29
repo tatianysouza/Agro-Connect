@@ -27,8 +27,10 @@
         </div>
         
         <div class="checkout-summary">
-            <h3>Total da Compra</h3>
-            <p><strong>Total:</strong> R$ {{ total }}</p>
+            <div class="checkout-summary-price">
+                <h3>Total da Compra</h3>
+                <p>R$ {{ total }}</p>
+            </div>
             <form action="{{ url_for('checkout') }}" method="post">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit" class="btn btn-primary">Finalizar Compra</button>
