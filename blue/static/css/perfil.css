@@ -1,0 +1,154 @@
+
+/* Adiciona um espaçamento ao redor da seção do perfil */
+.content-perfil {
+    display: flex;
+    align-items: flex-start; /* Alinha os itens ao topo */
+    margin-top: 20px;
+}
+
+/* Estilo para a imagem do perfil */
+.content-image-perfil {
+    margin-right: 20px; /* Espaço entre a imagem e as informações */
+}
+
+.content-image-perfil img {
+    width: 150px; /* Largura da imagem */
+    height: 150px; /* Altura da imagem */
+    border-radius: 8px; /* Arredonda um pouco os cantos */
+    object-fit: cover; /* Garante que a imagem preencha a área sem distorcer */
+    border: 2px solid #ddd; /* Adiciona uma borda leve */
+}
+
+/* Estilo para as informações do perfil */
+.content-info-perfil {
+    max-width: 600px; /* Limita a largura máxima das informações */
+}
+
+.content-info-perfil h3 {
+    margin-top: 0; /* Remove a margem superior do título */
+    margin-bottom: 10px; /* Adiciona um espaço abaixo do título */
+}
+
+.content-info-perfil p {
+    margin-bottom: 10px; /* Espaço entre as linhas de informações */
+    font-size: 16px; /* Tamanho da fonte das informações */
+}
+
+.info-field {
+    display: inline-block; /* Faz com que o campo se comporte como um input */
+    padding: 8px 12px; /* Adiciona um preenchimento */
+    margin-left: 10px; /* Espaço à esquerda do campo */
+    border: 1px solid #ccc; /* Borda do campo */
+    border-radius: 4px; /* Cantos arredondados do campo */
+    background-color: #f9f9f9; /* Cor de fundo do campo */
+    color: #333; /* Cor do texto no campo */
+    font-size: 16px; /* Tamanho da fonte no campo */
+}
+
+/* Estilo do botão de editar */
+.btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+.profile-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.profile-info {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.profile-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    color: #333;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+}
+
+.table thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-success:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.no-data {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+}

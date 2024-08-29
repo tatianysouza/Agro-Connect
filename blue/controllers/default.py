@@ -7,18 +7,14 @@ from werkzeug.utils import secure_filename
 from ..forms import RegistrationForm, LoginForm, CadastroProdutoForm
 from ..models.tables import db, Usuario, Produto, TipoUsuario, StatusPedido, Pedido, ItemPedido
 from datetime import datetime, timezone
-from ..models.tables import TipoUsuario, db, Usuario, Produto
 
 @app.context_processor
-def inject_user_type():
+def inject_context():
     return {
         'tipo_usuario': current_user.tipo_usuario if current_user.is_authenticated else None,
-        'TipoUsuario': TipoUsuario
+        'TipoUsuario': TipoUsuario,
+        'StatusPedido': StatusPedido
     }
-
-@app.context_processor
-def inject_status_pagamento():
-    return dict(StatusPedido=StatusPedido)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -43,7 +39,7 @@ def register():
             form.image_file.data.save(imagens_path)
             imagem_relativa = imagem_nome
         else:
-            imagem_relativa = 'default.jpg'
+            imagem_relativa = 'profile.png'
             
         user = Usuario(
             username=form.username.data,
@@ -82,7 +78,7 @@ def allowed_file(filename):
 @app.route('/cadastrar_produto', methods=['GET', 'POST'])
 @login_required
 def cadastrar_produto():
-    if current_user.tipo_usuario != TipoUsuario.PRODUTOR:
+    if current_user.tipo_usuario != "PRODUTOR":
         flash('Access denied. You must be a seller to access this page.', 'danger')
         return redirect(url_for('home'))
     
@@ -98,7 +94,7 @@ def cadastrar_produto():
             imagens_path = os.path.join(app.config['UPLOAD_PATH'], imagem_nome)
             form.imagens.data.save(imagens_path)
         else:
-            imagem_nome = 'default.jpg'
+            imagem_nome = 'profile.png'
         
         product = Produto(
             nome=form.nome.data,
@@ -133,6 +129,16 @@ def logout():
 def about():
     return render_template('about.html')
 
+@app.route('/desativar_produto/<int:product_id>', methods=['POST'])
+@login_required
+@csrf.exempt
+def desativar_produto(product_id):
+    produto = Produto.query.get_or_404(product_id)
+    produto.desativar()
+    flash('Produto desativado com sucesso!', 'success')
+    return redirect(url_for('my_products'))
+
+
 @app.route('/delete_product/<int:product_id>', methods=['POST'])
 @login_required
 @csrf.exempt
@@ -147,10 +153,18 @@ def delete_product(product_id):
     flash('Product has been deleted.', 'success')
     return redirect(url_for('my_products'))
 
+@app.route('/ativar_produto/<int:product_id>', methods=['POST'])
+def ativar_produto(product_id):
+    produto = Produto.query.get_or_404(product_id)
+    produto.ativo = True
+    db.session.commit()
+    flash('Produto reativado com sucesso!', 'success')
+    return redirect(url_for('home'))
+
 @app.route('/my_products')
 @login_required
 def my_products():
-    if current_user.tipo_usuario != TipoUsuario.PRODUTOR:
+    if current_user.tipo_usuario != "PRODUTOR":
         flash('Access denied. You must be a seller to access this page.', 'danger')
         return redirect(url_for('home'))
     
@@ -221,7 +235,8 @@ def add_to_cart(product_id):
         cart[str(product_id)] = {
             'name': product.nome,
             'price': float(product.preco),
-            'quantity': 1
+            'quantity': 1,
+            'image_file': product.image_file
         }
     
     session.modified = True
@@ -260,3 +275,19 @@ def aprovar_pagamento(item_id):
     
     flash('Pagamento aprovado com sucesso!', 'success')
     return redirect(url_for('perfil'))
+
+@app.route('/editar_perfil', methods=['GET', 'POST'])
+@login_required  
+def editar_perfil():
+    if request.method == 'POST':
+        current_user.nome = request.form.get('nome')
+        current_user.email = request.form.get('email')
+        current_user.telefone = request.form.get('telefone')
+        current_user.endereco = request.form.get('endereco')
+
+        db.session.commit()
+        
+        flash('Perfil atualizado com sucesso!', 'success')
+        return redirect(url_for('perfil'))
+
+    return render_template('perfil.html', user=current_user)

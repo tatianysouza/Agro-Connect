@@ -50,8 +50,13 @@ class Produto(db.Model):
     unidade_medida = db.Column(db.String(5), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
     id_produtor = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
+    ativo = db.Column(db.Boolean, default=True)
 
     produtor = db.relationship('Usuario', back_populates='produtos')
+    
+    def desativar(self):
+        self.ativo = False
+        db.session.commit()
     
     def __repr__(self):
         return f"Product('{self.nome}', '{self.date_posted}')"

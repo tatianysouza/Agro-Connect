@@ -7,22 +7,28 @@ from .models.tables import Usuario,TipoUsuario
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', 
-                           validators=[DataRequired(), Length(min=2, max=20)])
+                           validators=[DataRequired(), Length(min=2, max=20)],
+                           render_kw={"placeholder": "Nome do usuario"})
     
     telefone = StringField('Telefone', 
-                           validators=[Length(max=20)])
+                           validators=[Length(max=20)],
+                           render_kw={"placeholder": "Número do telefone"})
     
     email = StringField('Email', 
-                        validators=[DataRequired(), Email()])
+                        validators=[DataRequired(), Email()],
+                        render_kw={"placeholder": "Insira seu E-mail"})
     
     senha = PasswordField('Senha', 
-                          validators=[DataRequired()])
+                          validators=[DataRequired()],
+                          render_kw={"placeholder": "Insira sua senha"})
     
     confirmar_senha = PasswordField('Confirme sua senha', 
-                                    validators=[DataRequired(), EqualTo('senha')])
+                                    validators=[DataRequired(), EqualTo('senha')],
+                                    render_kw={"placeholder": "Confirme sua senha"})
     
     endereco = StringField('Endereço', 
-                           validators=[DataRequired(), Length(max=100)])
+                           validators=[DataRequired(), Length(max=100)],
+                           render_kw={"placeholder": "Endereço"})
     
     image_file = FileField('Atualizar Imagem de Perfil', 
                            validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
@@ -45,17 +51,22 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()],
+                        render_kw={"placeholder": "Informe seu email"})
+    password = PasswordField('Password', validators=[DataRequired()],
+                             render_kw={"placeholder": "Informe sua senha"})
     remember = BooleanField('Manter-se registrado')
     submit = SubmitField('Login')
 
 class CadastroProdutoForm(FlaskForm):
-    nome = StringField('Nome do Produto', validators=[DataRequired(), Length(min=2, max=100)])
-    descricao = TextAreaField('Descrição', validators=[DataRequired(), Length(min=10, max=500)])
-    preco = DecimalField('Preço', validators=[DataRequired(), NumberRange(min=0)], places=2)
-    quantidade = IntegerField('Quantidade Disponível', validators=[DataRequired(), NumberRange(min=1)])
-    unidade_medida = SelectField('Unidade de Medida', choices=[('kg', 'Kg'), ('litro', 'Litro'), ('unidade', 'Unidade')], validators=[DataRequired()])
+    nome = StringField('Nome do Produto', validators=[DataRequired(), Length(min=2, max=100)],
+                       render_kw={"placeholder": "Nome do produto"})
+    descricao = TextAreaField('Descrição', validators=[DataRequired(), Length(min=10, max=500)],
+                              render_kw={"placeholder": "Descrição do produto"})
+    preco = DecimalField('Preço', validators=[DataRequired(), NumberRange(min=0)], places=2,
+                         render_kw={"placeholder": "Preço do Produto"})
+    quantidade = IntegerField('Quantidade Disponível', validators=[DataRequired(), NumberRange(min=1)], render_kw={"placeholder": "Quantidade disponível"})
+    unidade_medida = SelectField('Unidade de Medida', choices=[('kg', 'Kg'), ('litro', 'Litro'), ('unidade', 'Unidade')], validators=[DataRequired()], render_kw={"placeholder": "Unidade de Medida"})
     imagens = FileField('Imagens do Produto', validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'Somente imagens são permitidas!')])
     submit = SubmitField('Cadastrar Produto')
 

@@ -4,55 +4,73 @@
 
 {% block style %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/register.css')}}">
 {% endblock %}
 
 
 {% block content %}
-    <section class="container">
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="main-login">
-                <div class="right-register">
-                    <div class="card-register">
-                        <h1>Sign up</h1>
-                        <div class="textfield">
-                            {{ form.username.label(class="form-label") }}
-                            {{ form.username(class="form-control", size=32) }}
-                        </div>
-                        <div class="textfield">
-                            {{ form.email.label(class="form-label") }}
-                            {{ form.email(class="form-control", size=32) }}
-                        </div>
-                        <div class="textfield">
-                            {{ form.telefone.label(class="form-label") }}
-                            {{ form.telefone(class="form-control", size=32) }}
-                        </div>
-                        <div class="textfield">
-                            {{ form.endereco.label(class="form-label") }}
-                            {{ form.endereco(class="form-control", size=32) }}
-                        </div>
-                        <div class="textfield">
-                            {{ form.image_file.label(class="form-label") }}
-                            {{ form.image_file(class="form-control") }}
-                        </div>
-                        <div class="textfield">
-                            {{ form.senha.label(class="form-label") }}
-                            {{ form.senha(class="form-control", size=32) }}
-                        </div>
-                        <div class="textfield">
-                            {{ form.confirmar_senha.label(class="form-label") }}
-                            {{ form.confirmar_senha(class="form-control", size=32) }}
-                        </div>
-                        <div class="textfield">
-                            {{ form.tipo_usuario.label(class="form-label") }}
-                            {{ form.tipo_usuario(class="form-control") }}
-                        </div>
-                        
-                        {{ form.submit(class="btn-login") }}
-                        <p class="signin">Já tem conta? <a href="{{ url_for('login') }}">Sign in</a> </p>
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="main-login">
+        <div class="left-login">
+            <h1>Cadastre-se<br> e entre para o nosso time</h1>
+            <img src="{{ url_for('static', filename='images/login.png') }}" class="left-login-image" alt="Pessoas">
+        </div>
+        <div class="right-login">
+            <div class="card-login card-register">
+                <div id="uploadProfile" >
+                    <input type="file" id="capa" name="capa" accept=".jpg,.jpeg,.png" class="form-control">
+                    <img id="preview" src="{{ url_for('static', filename='images/profile.png') }}" alt="Preview"/>
+                </div>
+                <div class="form-row">
+                    <div class="textfield">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control", size=32) }}
+                    </div>
+                    <div class="textfield">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control", size=32) }}
                     </div>
                 </div>
+
+                <!-- Agrupando os campos de telefone e endereço lado a lado -->
+                <div class="form-row">
+                    <div class="textfield">
+                        {{ form.telefone.label(class="form-label") }}
+                        {{ form.telefone(class="form-control", size=32) }}
+                    </div>
+                    <div class="textfield">
+                        {{ form.endereco.label(class="form-label") }}
+                        {{ form.endereco(class="form-control", size=32) }}
+                    </div>
+                </div>
+
+                <!-- Agrupando campos de senha e confirmar senha lado a lado -->
+                <div class="form-row">
+                    <div class="textfield">
+                        {{ form.senha.label(class="form-label") }}
+                        {{ form.senha(class="form-control", size=32) }}
+                    </div>
+                    <div class="textfield">
+                        {{ form.confirmar_senha.label(class="form-label") }}
+                        {{ form.confirmar_senha(class="form-control", size=32) }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="textfield">
+                        {{ form.tipo_usuario.label(class="form-label") }}
+                        {{ form.tipo_usuario(class="form-control") }}
+                    </div>
+                </div>
+
+                {{ form.submit(class="btn-login") }}
+                <p class="signin">Já tem conta? 
+                    <a href="{{ url_for('login') }}">Sign in</a> 
+                </p>
             </div>
-        </form>
-    </section>
+        </div>
+    </div>
+</form>
 {% endblock %}

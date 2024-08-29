@@ -2,20 +2,23 @@
 
 {% block title %}Perfil - {{ user.username }}{% endblock %}
 
-{% block content %}
-<div class="container mt-5">
-    <h1>Perfil de {{ user.username }}</h1>
+{% block style %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/perfil.css')}}">
+{% endblock %}
 
-    <!-- Informações do Usuário -->
-    <div class="row mb-4">
-        <div class="col-md-3">
+{% block content %}
+<section class="container">
+    <h2 class="titleSection">{{ user.username }}</h2>
+    
+    <div class="content-perfil">
+        <div class="content-image-perfil">
             {% if user.image_file %}
                 <img src="{{ url_for('uploaded_file', filename=user.image_file) }}" alt="Foto de {{ user.username }}" class="img-thumbnail">
             {% else %}
                 <img src="{{ url_for('static', filename='uploads/default.png') }}" alt="Foto Padrão" class="img-thumbnail">
             {% endif %}
         </div>
-        <div class="col-md-9">
+        <div class="content-info-perfil">
             <h3>{{ user.nome }}</h3>
             <p><strong>E-mail:</strong> {{ user.email }}</p>
             <p><strong>Telefone:</strong> {{ user.telefone }}</p>
@@ -23,8 +26,7 @@
             <p><strong>Data de Cadastro:</strong> {{ user.data_criacao.strftime('%d/%m/%Y') }}</p>
         </div>
     </div>
-    
-    <h2>Minhas Compras</h2>
+    <h2 class="titleSection">Minhas Compras</h2>
     {% if compras %}
         <table class="table">
             <thead>
@@ -50,7 +52,7 @@
         <p>Você ainda não fez nenhuma compra.</p>
     {% endif %}
     
-    <h2>Minhas Vendas</h2>
+    <h2 class="titleSection">Minhas Vendas</h2>
     {% if vendas %}
         <table class="table">
             <thead>
@@ -83,5 +85,5 @@
     {% else %}
         <p>Você ainda não fez nenhuma venda.</p>
     {% endif %}
-</div>
+</section>>
 {% endblock %}

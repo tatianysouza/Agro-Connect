@@ -5,21 +5,30 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <img src="{{ url_for('uploaded_file', filename=product.image_file) }}" class="img-fluid" alt="{{ product.nome }}">
-        </div>
-        <div class="col-md-6">
-            <h1>{{ product.nome }}</h1>
-            <p class="lead">{{ product.descricao }}</p>
-            <p><strong>Price:</strong> ${{ product.preco }}</p>
-            <p><strong>Quantity:</strong> {{ product.quantidade }} {{ product.unidade_medida }}</p>
-            <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
-            </form>
-        </div>
+<div class="container product-container">
+    <div class="col-md-6">
+        <img src="{{ url_for('uploaded_file', filename=product.image_file) }}" class="product-image" alt="{{ product.nome }}">
+    </div>
+    <div class="col-md-6 product-info">
+        <h1>{{ product.nome }}</h1>
+        <p class="lead">{{ product.descricao }}</p>
+        <p><strong>Preço:</strong> R$ {{ product.preco }}</p>
+        <p><strong>Disponível:</strong> {{ product.quantidade }} {{ product.unidade_medida }}</p>
+
+        <!-- Formulário para adicionar ao carrinho -->
+        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            {% if product.ativo == "True" %}
+            <!-- Campo de quantidade -->
+            <div class="quantity-group">
+                <label for="quantity"><strong>Quantidade:</strong></label>
+                <input type="number" name="quantity" id="quantity" min="1" max="{{ product.quantidade }}" value="1" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-add-to-cart">Adicionar ao Carrinho</button>
+            {% endif %}
+        </form>
     </div>
 </div>
 {% endblock %}

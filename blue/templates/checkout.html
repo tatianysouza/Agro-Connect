@@ -1,43 +1,41 @@
 {% extends "base.html" %}
+{% block title %}{{ super() }} - Checkout{% endblock %}
 
-{% block title %}Checkout{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
+{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Checkout</h1>
-    {% if 'cart' in session and session['cart'] %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item_id, item in session['cart'].items() %}
-                    <tr>
-                        <td>{{ item.name }}</td>
-                        <td>${{ item.price }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>${{ item.price * item.quantity }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="3">Total</th>
-                    <th>${{ total }}</th>
-                </tr>
-            </tfoot>
-        </table>
-        <form action="{{ url_for('checkout') }}" method="post">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <button type="submit" class="btn btn-primary">Finalizar Compra</button>
-        </form>
+    <h1 class="checkout-title">Finalizar Compra</h1>
+    
+    {% if cart %}
+        <div class="checkout-cards">
+            {% for item_id, item in cart.items() %}
+                <div class="card">
+                    <div class="card-img">
+                        <img src="{{ url_for('uploaded_file', filename=item['image_file']) }}" alt="{{ item.name }}">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-price">Preço: R$ {{ item.price }}</p>
+                        <p class="card-quantity">Quantidade: {{ item.quantity }}</p>
+                        <p class="card-total">Total: R$ {{ item.price * item.quantity }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="checkout-summary">
+            <h3>Total da Compra</h3>
+            <p><strong>Total:</strong> R$ {{ total }}</p>
+            <form action="{{ url_for('checkout') }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+            </form>
+        </div>
     {% else %}
-        <p>Seu carrinho está vazio.</p>
+        <p class="empty-cart">Seu carrinho está vazio.</p>
     {% endif %}
 </div>
-{% endblock %}
+{% endblock content %}

@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container">
-        <h2 class="titleSection">Marketplace</h2>
+<section class="container">
+    <h2 class="titleSection">Marketplace</h2>
+    {% if products %}
         <div class="content-cards">
             {% for product in products %}
                 <div class="card">
@@ -17,15 +18,27 @@
                         <h5 class="card-title">{{ product.nome }}</h5>
                         <p class="card-text">{{ product.descricao }}</p>
                         <p class="card-price"><strong>Preço:</strong> R$ {{ product.preco }}</p>
-                        <p class="card-availability"><strong>Qtde total:</strong> {{ product.quantidade }} {{ product.unidade_medida}}</p>
-                        <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post" style="display:inline;">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="btn btn-primary btn-danger">Delete</button>
-                        </form>
+                        <p class="card-availability"><strong>Qtde total:</strong> {{ product.quantidade }} {{ product.unidade_medida }}</p>
+                        
+                        {% if product.ativo == "True" %}
+                            <form action="{{ url_for('desativar_produto', product_id=product.id) }}" method="post" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-primary btn-danger">Encerrar Vendas</button>
+                            </form>
+                        {% else %}
+                            <form action="{{ url_for('ativar_produto', product_id=product.id) }}" method="post" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-primary btn-success">Reativar Vendas</button>
+                            </form>
+                        {% endif %}
+
                         <p class="card-text"><small class="text-muted">Postado por {{ product.produtor.username }} em {{ product.date_posted.strftime('%Y-%m-%d') }}</small></p>
                     </div>
                 </div>
             {% endfor %}
         </div>
-    </section>
+    {% else %}
+        <p>Nenhum produto encontrado.</p>
+    {% endif %}
+</section>
 {% endblock %}

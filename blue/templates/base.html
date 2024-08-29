@@ -41,12 +41,12 @@
                             </li>
                             {% if current_user.is_authenticated %}
                             <li class="nav-item">
-                                {% if tipo_usuario == TipoUsuario.PRODUTOR %}
+                                {% if tipo_usuario == TipoUsuario.PRODUTOR.name %}
                                 <a class="nav-link" href="{{ url_for('cadastrar_produto') }}">Anunciar Produto</a>
                                 {% endif %}
                             </li>
                             <li class="nav-item">
-                                {% if tipo_usuario == TipoUsuario.PRODUTOR %}
+                                {% if tipo_usuario == TipoUsuario.PRODUTOR.name %}
                                 <a class="nav-link" href="{{ url_for('my_products') }}">My Products</a>
                                 {% endif %}
                             </li>

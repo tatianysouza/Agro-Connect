@@ -20,10 +20,12 @@
                         <p class="card-text">{{ product.descricao }}</p>
                         <p class="card-price"><strong>Preço:</strong> R$ {{ product.preco }}</p>
                         <p class="card-availability"><strong>Qtde total:</strong> {{ product.quantidade }} {{ product.unidade_medida}}</p>
+                        {% if product.ativo == True %}
                         <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post" style="display: inline;">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit" class="btn btn-primary">Comprar</button>
                         </form>
+                        {% endif %}
                         <p class="card-text"><small class="text-muted">Postado por {{ product.produtor.username }} em {{ product.date_posted.strftime('%Y-%m-%d') }}</small></p>
                     </div>
                 </div>
